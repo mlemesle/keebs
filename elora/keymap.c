@@ -144,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void keyboard_post_init_user(void) {
   rgb_matrix_enable_noeeprom(); // Enables RGB, without saving settings
-  rgb_matrix_sethsv_noeeprom(HSV_SPRINGGREEN);
+  rgb_matrix_sethsv_noeeprom(106, 255, 160);
   rgb_matrix_mode_noeeprom(RGB_MATRIX_GRADIENT_UP_DOWN);
 }
 
@@ -154,14 +154,14 @@ void keyboard_post_init_user(void) {
 #include "bongo_cat.h"
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
-    return OLED_ROTATION_0;
+  return OLED_ROTATION_0;
 }
 
 bool oled_task_user(void) {
     if (is_keyboard_master()) {
-        rust_render_anim();
+      bongo_render_anim();
     } else {
-         bongo_render_anim();
+      rust_render_anim();
     }
     return false;
 }

@@ -17,11 +17,8 @@
 #pragma once
 
 #define RGB_MATRIX_SLEEP
-#define RGB_MATRIX_DEFAULT_VAL 50
 #define RGB_MATRIX_DEFAULT_SPD 20
 #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-
-#define SPLIT_WPM_ENABLE
 
 // Lets you roll mod-tap keys
 

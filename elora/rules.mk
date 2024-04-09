@@ -43,6 +43,5 @@ EXTRAKEY_ENABLE = yes      # Audio and system control
 
 # N-key rollover instead of 6-key rollover
 NKRO_ENABLE = yes          # Enable N-Key Rollover
-WPM_ENABLE = yes
 
 SRC += bongo_cat.c rust.c
