@@ -143,3 +143,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 //
 };
+
+#ifdef RGB_MATRIX_ENABLE
+
+void keyboard_post_init_user(void) {
+  rgb_matrix_mode(RGB_MATRIX_SOLID_COLOR);
+  rgb_matrix_sethsv(0, 0, 75);
+}
+
+#endif
