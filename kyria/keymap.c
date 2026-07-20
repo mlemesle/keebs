@@ -15,11 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-#include <stdio.h>
-
 #include "keymap_bepo.h"
-
-char wpm_str[30];
 
 enum layers {
     _BEPO = 0,
@@ -52,9 +48,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                            `---------------------------------------------'      `---------------------------------------------'
  */
     [_BEPO] = LAYOUT(
-      KC_ESC , BP_B   , BP_EA , BP_P   , BP_O   , BP_EG  ,                    /* */                    BP_DCIR  , BP_V   , BP_D   , BP_L   , BP_J   , BP_Z ,
-      KC_TAB , BP_A   , BP_U  , BP_I   , BP_E   , BP_CO  ,                    /* */                    BP_C   , BP_T   , BP_S   , BP_R   , BP_N   , BP_M ,
-      KC_LSFT, BP_AG  , BP_Y  , BP_X   , BP_DT  , BP_K   , KC_PSCR,  KC_MUTE, /* */  KC_VOLD , KC_VOLU,BP_QUOT  , BP_Q   , BP_G   , BP_H   , BP_F   , BP_W ,
+      KC_ESC , BP_B   , BP_EA , BP_P   , BP_O   , BP_EG  ,                    /* */                    BP_DCIR  , BP_V   , BP_D   , BP_L   , BP_J   , KC_EQL ,
+      KC_TAB , BP_A   , BP_U  , BP_I   , BP_E   , BP_CO  ,                    /* */                    BP_C   , BP_T   , BP_S   , BP_R   , BP_N   , RM_TOGG ,
+      KC_LSFT, BP_AG  , BP_Y  , BP_X   , BP_DT  , BP_K   , KC_PSCR,  KC_MUTE, /* */  KC_VOLD , KC_VOLU,BP_QUOT  , BP_Q   , BP_G   , BP_H   , BP_F   , KC_RSFT ,
                       KC_LCTL, KC_LGUI, KC_LALT, LT(_LOWER, KC_BSPC) , LT(_RAISE, KC_DEL) ,/* */ LT(_CODE, KC_ENT), KC_SPACE , KC_ALGR , BP_UNDS   , BP_CCED
     ),
 
@@ -96,10 +92,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  */
     [_RAISE] = LAYOUT(
-      RGB_M_R, RGB_M_K, KC_F9  , KC_F10 , KC_F11 , KC_F12 ,                 /* */                   _______, BP_7  , BP_8  , BP_9  , BP_SLSH ,  KC_NO ,
-      RGB_M_SW,RGB_M_G, KC_F5  , KC_F6  , KC_F7  , KC_F8,                   /* */                   _______, BP_4  , BP_5  , BP_6  , BP_ASTR ,  KC_NO ,
-      RGB_M_SN,RGB_M_B, KC_F1  , KC_F2  , KC_F3  , KC_F4, KC_TRNS, KC_TRNS, /* */ KC_TRNS, KC_TRNS, _______, BP_1  , BP_2  , BP_3  , BP_PLUS ,  KC_NO ,
-                                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, /* */ KC_TRNS, KC_TRNS, BP_0, KC_TRNS  , BP_MINS
+      RGB_M_R, RGB_M_K, KC_F9  , KC_F10 , KC_F11 , KC_F12 ,                 /* */                   _______, KC_7  , KC_8  , KC_9  , BP_SLSH ,  KC_NO ,
+      RGB_M_SW,RGB_M_G, KC_F5  , KC_F6  , KC_F7  , KC_F8,                   /* */                   _______, KC_4  , KC_5  , KC_6  , BP_ASTR ,  KC_NO ,
+      RGB_M_SN,RGB_M_B, KC_F1  , KC_F2  , KC_F3  , KC_F4, KC_TRNS, KC_TRNS, /* */ KC_TRNS, KC_TRNS, _______, KC_1  , KC_2  , KC_3  , BP_PLUS ,  KC_NO ,
+                                 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, /* */ KC_TRNS, KC_TRNS, KC_0, KC_TRNS  , BP_MINS
     ),
 
     /*
@@ -147,34 +143,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 //
 };
-
-
-#ifdef RGBLIGHT_ENABLE
-void keyboard_post_init_user(void) {
-  rgblight_enable_noeeprom(); // Enables RGB, without saving settings
-  rgblight_sethsv_noeeprom(HSV_SPRINGGREEN);
-  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-}
-#endif
-
-
-#ifdef OLED_ENABLE
-
-#include "rust.h"
-#include "bongo_cat.h"
-
-bool oled_task_user(void) {
-    if (is_keyboard_master()) {
-        bongo_render_anim();
-    } else {
-        rust_render_anim();
-    }
-    return false;
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	keystroke_timestamp = timer_read32();
-	return true;
-}
-
-#endif /* OLED_ENABLE */
